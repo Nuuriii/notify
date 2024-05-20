@@ -1,9 +1,9 @@
-"use client";
-import { useEffect, useState } from "react";
-import { auth, provider, githubAuthProvider, app } from "@/service/firebase";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import { signInWithPopup, signOut, User } from "firebase/auth";
-import { Button } from "@/components/ui/button";
+'use client';
+import { useEffect, useState } from 'react';
+import { auth, provider, githubAuthProvider, app } from '@/service/firebase';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { signInWithPopup, signOut, User } from 'firebase/auth';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,10 +11,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import GoogleIcon from "@/assets/google.svg";
-import GithubIcon from "@/assets/github.svg";
-import Image from "next/image";
+} from '@/components/ui/card';
+import GoogleIcon from '@/assets/google.svg';
+import GithubIcon from '@/assets/github.svg';
+import Image from 'next/image';
 
 const db = getFirestore(app);
 
@@ -42,7 +42,7 @@ const Login: React.FC = () => {
       console.log(result);
       await saveUserToFirestore(result.user);
     } catch (error) {
-      console.error("Error signing in: ", error);
+      console.error('Error signing in: ', error);
     }
   };
 
@@ -52,7 +52,7 @@ const Login: React.FC = () => {
       console.log(result);
       await saveUserToFirestore(result.user);
     } catch (error) {
-      console.error("Error signing in: ", error);
+      console.error('Error signing in: ', error);
     }
   };
 
@@ -61,27 +61,27 @@ const Login: React.FC = () => {
       const result = await signOut(auth);
       console.log(result);
     } catch (error) {
-      console.error("Error signing out: ", error);
+      console.error('Error signing out: ', error);
     }
   };
 
   const getNote = async (userId: any) => {
-    const docSnap = await getDoc(doc(db, "notes", userId));
+    const docSnap = await getDoc(doc(db, 'notes', userId));
     if (docSnap.exists()) {
       return docSnap.data().note;
     } else {
-      console.log("No such document!");
+      console.log('No such document!');
       return null;
     }
   };
 
   const saveNote = async (userId: any, note: any) => {
     try {
-      const docRef = doc(db, "notes", userId);
+      const docRef = doc(db, 'notes', userId);
       await setDoc(docRef, { note });
-      console.log("Note saved!");
+      console.log('Note saved!');
     } catch (error) {
-      console.error("Error saving document:", error);
+      console.error('Error saving document:', error);
     }
   };
 
@@ -89,24 +89,24 @@ const Login: React.FC = () => {
     if (user) {
       console.log(user, note);
       await saveNote(user.uid, note);
-      alert("Note saved!");
+      alert('Note saved!');
     }
   };
 
   const saveUserToFirestore = async (user: any) => {
     try {
       await setDoc(
-        doc(db, "users", user.uid),
+        doc(db, 'users', user.uid),
         {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
         },
-        { merge: true }
+        { merge: true },
       ); // Gunakan merge: true untuk menggabungkan data jika dokumen sudah ada
     } catch (error) {
-      console.error("Error saving user to Firestore:", error);
+      console.error('Error saving user to Firestore:', error);
     }
   };
 
@@ -134,7 +134,7 @@ const Login: React.FC = () => {
               <div className="relative my-[5px] h-[30px] flex items-center">
                 <div className="w-full h-[1px] bg-neutral-200"></div>
                 <p className="absolute top-1 z-10 w-[50px] text-center bg-white left-[40%]">
-                  Or
+                  O
                 </p>
               </div>
               <Button
