@@ -37,7 +37,8 @@ export default function ProtectedRoute({ children }: ProtectedProps) {
 
   useEffect(() => {
     VerifyUser();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <>{children}</>;
 }
