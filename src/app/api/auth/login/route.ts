@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { uid, email, displayName, photoURL } = body;
-
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 7);
 

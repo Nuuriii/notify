@@ -1,10 +1,13 @@
-import Image from "next/image";
-import Login from "@/components/signIn/SignIn";
+import Image from 'next/image';
+import Login from '@/components/signIn/SignIn';
+import ProtectedRoute from '@/components/protectedRoute/protectedRoute';
 
 export default function Home() {
   return (
     <main>
-      <Login />
+      <ProtectedRoute>
+        <Login />
+      </ProtectedRoute>
     </main>
   );
 }

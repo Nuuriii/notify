@@ -64,7 +64,7 @@ const Login: React.FC = () => {
         photoURL: user.photoURL,
       };
       const { data: SendDataToRouteHandler } = await axios.post(
-        '/api/auth',
+        '/api/auth/login',
         postData,
       );
 
