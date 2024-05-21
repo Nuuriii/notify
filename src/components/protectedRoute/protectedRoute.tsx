@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/lib/redux-toolkit/store';
 import { useQuery } from '@tanstack/react-query';
+import styles from './loader.module.css';
 
 interface ProtectedProps {
   children: ReactNode;
@@ -20,25 +21,32 @@ export default function ProtectedRoute({ children }: ProtectedProps) {
     (state: RootState) => state.userInformation,
   );
   const publicRoute = pathName === '/';
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      try {
+        const { data: verify } = await axios.get(
+          `/api/auth/verify?display-name=${userInformaion.displayName}&photo-url=${userInformaion.photoUrl}`,
+        );
 
-  const VerifyUser = async () => {
-    setIsLoading(true);
-    try {
-      const { data: verify } = await axios.get(
-        `/api/auth/verify?display-name=${userInformaion.displayName}&photo-ul=${userInformaion.photoUrl}`,
-      );
-      console.log(verify);
-      setIsAuth(true);
-    } catch (error: any) {
-      console.log(error.response.data);
-      setIsAuth(false);
-    }
-  };
+        return verify;
+      } catch (error: any) {
+        return error;
+      }
+    },
+  });
 
-  useEffect(() => {
-    VerifyUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log(data);
 
-  return <>{children}</>;
+  return (
+    <>
+      {isPending ? (
+        <div className="min-h-screen flex justify-center items-center">
+          <div className={styles.loader}></div>
+        </div>
+      ) : (
+        children
+      )}
+    </>
+  );
 }

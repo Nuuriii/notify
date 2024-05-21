@@ -29,15 +29,15 @@ export async function GET(req: NextRequest) {
         },
         { status: 200 },
       );
-    } else {
-      return NextResponse.json(
-        {
-          status: 'unauthorized',
-          message: 'User is not Verified',
-        },
-        { status: 401 },
-      );
     }
+    console.log('llll');
+    return NextResponse.json(
+      {
+        status: 'unauthorized',
+        message: 'User is not Verified',
+      },
+      { status: 401 },
+    );
   } catch (error: any) {
     console.error('Error get user to Firestore:', error);
     return NextResponse.json(

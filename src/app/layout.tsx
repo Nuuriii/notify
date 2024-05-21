@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Inter as FontSans } from 'next/font/google';
 import ReduxProvider from './reduxProvider';
+import ReactQueryProvider from './reactQueryProvider';
 
 import { cn } from '@/lib/utils';
 
@@ -28,7 +29,9 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
