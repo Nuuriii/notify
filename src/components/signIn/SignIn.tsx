@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -19,6 +18,7 @@ import {
   updateDisplayName,
   updatePhotoUrl,
 } from '@/lib/redux-toolkit/user-information/userInformation';
+import axios from 'axios';
 
 const db = getFirestore(app);
 
@@ -57,16 +57,19 @@ const Login: React.FC = () => {
 
   const saveUserToFirestore = async (user: any) => {
     try {
-      await setDoc(
-        doc(db, 'users', user.uid),
-        {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        },
-        { merge: true },
+      const postData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+      const { data: SendDataToRouteHandler } = await axios.post(
+        '/api/auth',
+        postData,
       );
+
+      console.log(SendDataToRouteHandler);
+
       dispatch(updateDisplayName(user.displayName));
       dispatch(updatePhotoUrl(user.photoURL));
     } catch (error) {
