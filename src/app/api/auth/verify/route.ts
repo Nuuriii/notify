@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
         { status: 200 },
       );
     }
-    console.log('llll');
+
     return NextResponse.json(
       {
         status: 'unauthorized',

@@ -22,31 +22,34 @@ export default function ProtectedRoute({ children }: ProtectedProps) {
   );
   const publicRoute = pathName === '/';
   const { isPending, isError, data, error } = useQuery({
-    queryKey: [],
+    queryKey: [userInformaion.displayName, userInformaion.photoUrl],
     queryFn: async () => {
       try {
         const { data: verify } = await axios.get(
           `/api/auth/verify?display-name=${userInformaion.displayName}&photo-url=${userInformaion.photoUrl}`,
         );
-
-        return verify;
+        setIsAuth(true);
+        return router.push('/note');
       } catch (error: any) {
-        return error;
+        setIsAuth(false);
+        return router.push('/');
       }
     },
   });
 
-  console.log(data);
+  console.log(isAuth, pathName);
 
-  return (
-    <>
-      {isPending ? (
+  const RenderingCondition = () => {
+    if (isPending) {
+      return (
         <div className="min-h-screen flex justify-center items-center">
           <div className={styles.loader}></div>
         </div>
-      ) : (
-        children
-      )}
-    </>
-  );
+      );
+    } else {
+      return children;
+    }
+  };
+
+  return <>{RenderingCondition()}</>;
 }

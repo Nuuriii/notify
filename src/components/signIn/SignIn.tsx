@@ -19,10 +19,12 @@ import {
   updatePhotoUrl,
 } from '@/lib/redux-toolkit/user-information/userInformation';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const db = getFirestore(app);
 
 const Login: React.FC = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
