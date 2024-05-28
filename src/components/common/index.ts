@@ -5,3 +5,4 @@ export { CardHeader } from './card';
 export { CardTitle } from './card';
 export { Button } from './button';
 export { PaddingContainer } from './paddingContainer';
+export { Navbar } from './navbar';

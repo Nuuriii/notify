@@ -1,5 +1,5 @@
 'use client';
-import { PaddingContainer, Button } from '../common';
+import { PaddingContainer, Button, Navbar } from '../common';
 import { auth } from '@/service/firebase';
 import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
@@ -28,9 +28,12 @@ export default function NotePage() {
     }
   };
   return (
-    <PaddingContainer>
-      <h1>Haloo</h1>
-      <Button onClick={clearInformation}>Logout</Button>
-    </PaddingContainer>
+    <>
+      <Navbar />
+      <PaddingContainer>
+        <h1>Haloo</h1>
+        <Button onClick={clearInformation}>Logout</Button>
+      </PaddingContainer>
+    </>
   );
 }
