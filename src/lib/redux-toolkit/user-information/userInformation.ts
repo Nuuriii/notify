@@ -21,9 +21,13 @@ export const userInformation = createSlice({
     updatePhotoUrl: (state, action: PayloadAction<string>) => {
       state.photoUrl = action.payload;
     },
+    resetUserInformation: (state) => {
+      return initialState;
+    },
   },
 });
 
-export const { updateDisplayName, updatePhotoUrl } = userInformation.actions;
+export const { updateDisplayName, updatePhotoUrl, resetUserInformation } =
+  userInformation.actions;
 
 export default userInformation.reducer;
