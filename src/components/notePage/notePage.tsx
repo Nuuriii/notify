@@ -21,6 +21,7 @@ import {
 import { DummyData } from './noteData';
 import { useState } from 'react';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
+import { EditAndDeletePopOver } from './editAndDeletePopOver';
 
 export default function NotePage() {
   const [selectedNote, setSelectedNote] = useState({ title: '', note: '' });
@@ -38,19 +39,7 @@ export default function NotePage() {
             {DummyData.map((item: any, index: number) => (
               <Dialog key={index}>
                 <Card className="p-0 h-[230px] max-w-[330px] relative">
-                  <Popover>
-                    <PopoverTrigger className="absolute z-[50] right-[20px] flex justify-center items-center rounded-full top-[20px] hover:bg-neutral-300 h-[30px] w-[30px]">
-                      <Ellipsis size={20} />
-                    </PopoverTrigger>
-                    <PopoverContent className="p-2 w-auto flex flex-col gap-2">
-                      <Button className="flex justify-center items-center h-[35px] w-[35px] p-0">
-                        <FilePen size={18} />
-                      </Button>
-                      <Button className="flex bg-red-500 justify-center items-center h-[35px] w-[35px] p-0">
-                        <Trash2 size={18} />
-                      </Button>
-                    </PopoverContent>
-                  </Popover>
+                  <EditAndDeletePopOver />
                   <DialogTrigger
                     className="h-full break-all flex flex-col justify-start p-[20px]"
                     onClick={() => handleSelectedNote(item.title, item.note)}
