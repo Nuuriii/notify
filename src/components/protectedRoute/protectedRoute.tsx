@@ -21,18 +21,20 @@ export default function ProtectedRoute({ children }: ProtectedProps) {
     (state: RootState) => state.userInformation,
   );
   const publicRoute = pathName === '/';
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: [userInformaion.displayName, userInformaion.photoUrl],
+  const { isPending, isError, data } = useQuery({
+    queryKey: [`${userInformaion.displayName}`, `${userInformaion.photoUrl}`],
     queryFn: async () => {
       try {
         const { data: verify } = await axios.get(
           `/api/auth/verify?display-name=${userInformaion.displayName}&photo-url=${userInformaion.photoUrl}`,
         );
         setIsAuth(true);
-        return router.push('/note');
+        router.push('/note');
+        return verify;
       } catch (error: any) {
         setIsAuth(false);
-        return router.push('/');
+        router.push('/');
+        return error;
       }
     },
   });
