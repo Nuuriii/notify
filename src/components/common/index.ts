@@ -25,3 +25,4 @@ export { AlertDialogFooter } from './alert-dialog';
 export { AlertDialogHeader } from './alert-dialog';
 export { AlertDialogTitle } from './alert-dialog';
 export { AlertDialogTrigger } from './alert-dialog';
+export { Input } from './input';
