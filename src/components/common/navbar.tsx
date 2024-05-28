@@ -62,7 +62,7 @@ export function Navbar() {
                   sizes="100vw"
                 />
               </MenubarTrigger>
-              <MenubarContent className="relative top-[20px] flex flex -col justify-center right-[100px]">
+              <MenubarContent className="relative top-[20px] flex flex-col items-center right-[100px]">
                 <MenubarItem className="">
                   <Button onClick={clearInformation}>Logout</Button>
                 </MenubarItem>
