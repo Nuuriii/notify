@@ -13,3 +13,6 @@ export { DialogFooter } from './dialog';
 export { DialogHeader } from './dialog';
 export { DialogTitle } from './dialog';
 export { DialogTrigger } from './dialog';
+export { Popover } from './popover';
+export { PopoverContent } from './popover';
+export { PopoverTrigger } from './popover';
