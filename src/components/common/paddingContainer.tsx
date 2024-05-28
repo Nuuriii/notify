@@ -4,7 +4,7 @@ interface PaddingContainerProps {
 
 export function PaddingContainer({ children }: PaddingContainerProps) {
   return (
-    <div className="w-full px-[18px] md:px-[100px] max-w-[1420px]">
+    <div className="w-full px-[18px] md:px-[100px] max-w-[1420px] mx-auto">
       {children}
     </div>
   );
