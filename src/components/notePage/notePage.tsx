@@ -4,6 +4,7 @@ import { auth } from '@/service/firebase';
 import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { resetUserInformation } from '@/lib/redux-toolkit/user-information/userInformation';
+import { deleteCookie } from '@/app/action';
 
 export default function NotePage() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function NotePage() {
 
   const clearInformation = async () => {
     try {
+      const clearCookie = await deleteCookie();
       const logout = await handleLogout();
       dispatch(resetUserInformation());
     } catch (error) {
