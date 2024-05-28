@@ -1,15 +1,12 @@
 'use client';
-import { auth, provider, githubAuthProvider, app } from '@/service/firebase';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
-import { signInWithPopup, signOut, User } from 'firebase/auth';
-import { Button } from '@/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+  auth,
+  provider,
+  githubAuthProvider,
+  database,
+} from '@/service/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { signInWithPopup, signOut, User } from 'firebase/auth';
 import GoogleIcon from '@/assets/google.svg';
 import GithubIcon from '@/assets/github.svg';
 import Image from 'next/image';
@@ -20,8 +17,14 @@ import {
 } from '@/lib/redux-toolkit/user-information/userInformation';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
-const db = getFirestore(app);
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Button,
+} from '@/components/common/index';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -48,7 +51,7 @@ const Login: React.FC = () => {
   };
 
   const getNote = async (userId: any) => {
-    const docSnap = await getDoc(doc(db, 'notes', userId));
+    const docSnap = await getDoc(doc(database, 'notes', userId));
     if (docSnap.exists()) {
       return docSnap.data().note;
     } else {

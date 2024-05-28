@@ -1,5 +1,10 @@
 'use client';
+import { PaddingContainer } from '../common';
 
 export default function NotePage() {
-  return <div>hello</div>;
+  return (
+    <PaddingContainer>
+      <h1>Haloo</h1>
+    </PaddingContainer>
+  );
 }
