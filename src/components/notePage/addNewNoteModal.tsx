@@ -21,7 +21,7 @@ export function AddNewNoteModal() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Note?</DialogTitle>
+          <DialogTitle>Add New Note</DialogTitle>
           <DialogDescription>
             <Input type="text" placeholder="note" />
           </DialogDescription>
