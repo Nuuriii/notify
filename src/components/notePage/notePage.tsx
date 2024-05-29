@@ -22,6 +22,7 @@ import { DummyData } from './noteData';
 import { useState } from 'react';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
 import { EditAndDeletePopOver } from './editAndDeletePopOver';
+import { AddNewNoteModal } from './addNewNoteModal';
 
 export default function NotePage() {
   const [selectedNote, setSelectedNote] = useState({ title: '', note: '' });
@@ -34,7 +35,8 @@ export default function NotePage() {
     <>
       <Navbar />
       <PaddingContainer>
-        <div className="mt-[30px]">
+        <div className="mt-[30px] relative">
+          <AddNewNoteModal />
           <div className="flex flex-wrap justify-between">
             {DummyData.map((item: any, index: number) => (
               <Dialog key={index}>
