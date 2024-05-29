@@ -8,6 +8,7 @@ export { PaddingContainer } from './paddingContainer';
 export { Navbar } from './navbar';
 export { Dialog } from './dialog';
 export { DialogContent } from './dialog';
+export { DialogClose } from './dialog';
 export { DialogDescription } from './dialog';
 export { DialogFooter } from './dialog';
 export { DialogHeader } from './dialog';
