@@ -1,4 +1,4 @@
-import { Popover, PopoverContent, PopoverTrigger } from '../common';
+import { Popover, PopoverContent, PopoverTrigger, Input } from '../common';
 import { Ellipsis } from 'lucide-react';
 import { EditNoteModal } from './editNoteModal';
 import { DeleteNoteModal } from './deleteNoteModal';

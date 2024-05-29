@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
   Button,
+  Input,
 } from '../common';
 import { FilePen } from 'lucide-react';
 
@@ -20,10 +21,9 @@ export function EditNoteModal() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Edit Note?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            <Input type="text" placeholder="note" />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
