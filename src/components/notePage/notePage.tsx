@@ -76,13 +76,11 @@ export default function NotePage() {
                         <EditAndDeletePopOver />
                         <DialogTrigger className="h-full w-full break-all flex flex-col justify-start p-[20px]">
                           <CardHeader className="p-0">
-                            <CardTitle className="text-left relative">
-                              <p className="max-w-[200px] text-ellipsis overflow-hidden whitespace-nowrap">
-                                {item.title}
-                              </p>
-                            </CardTitle>
+                            <h1 className="max-w-[200px] font-semibold text-xl text-ellipsis overflow-hidden whitespace-nowrap text-left relative">
+                              {item.title}
+                            </h1>
                           </CardHeader>
-                          <CardContent className="text-left p-0 mt-[20px]">
+                          <CardContent className="text-left p-0 mt-[10px]">
                             <h1 className="text-ellipsis overflow-hidden line-clamp-6">
                               {item.content}
                             </h1>
