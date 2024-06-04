@@ -37,6 +37,8 @@ export function AddNewNoteModal() {
         const { data: response } = await axios.post('/api/note', postData);
         dispatch(addNote(response.data));
         setOpenModal(false);
+        setNoteTitle('');
+        setNoteDescription('');
         return response;
       } catch (error) {
         return error;
@@ -46,10 +48,8 @@ export function AddNewNoteModal() {
 
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogTrigger>
-        <div className="bg-neutral-700 text-white z-20 fixed right-[100px] bottom-[30px] flex justify-center items-center h-[50px] w-[50px] p-0 rounded-full transition-[0.3s] active:scale-[0.96]">
-          <Plus size={30} />
-        </div>
+      <DialogTrigger className="bg-neutral-700 text-white z-20 fixed right-[100px] bottom-[30px] flex justify-center items-center h-[50px] w-[50px] p-0 rounded-full transition-[0.3s] active:scale-[0.96]">
+        <Plus size={30} />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

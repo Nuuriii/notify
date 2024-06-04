@@ -57,9 +57,9 @@ export default function NotePage() {
     <>
       <Navbar />
       <PaddingContainer>
-        <div className="mt-[30px] relative">
+        <div className="my-[30px] relative">
           <AddNewNoteModal />
-          <div className="flex flex-wrap gap-10">
+          <div className="flex flex-wrap gap-5 justify-center">
             {isFetching ? (
               <h1>Loading... </h1>
             ) : noteListGlobalState.noteList.length === 0 ? (

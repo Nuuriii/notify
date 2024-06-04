@@ -43,17 +43,6 @@ export function DeleteNoteModal() {
     },
   });
 
-  // const deleteNote = async () => {
-  //   try {
-  //     const { data: deleteNote } = await axios.delete(
-  //       `/api/note/${selectedNoteGlobalState.id}`,
-  //     );
-  //     console.log(deleteNote);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger>
