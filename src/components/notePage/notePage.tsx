@@ -29,35 +29,30 @@ import { useQuery } from '@tanstack/react-query';
 import { RootState } from '@/lib/redux-toolkit/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSelectedNote } from '@/lib/redux-toolkit/note/selectedNoteSlice';
+import { updateListNote } from '@/lib/redux-toolkit/note/noteSlice';
 
 export default function NotePage() {
-  // const { isFetching, data, error} = useQuery({
-  //   queryKey: ['todos'],
-  //   queryFn: fetchTodoList,
-  // });
-  const [selectedNote, setSelectedNote] = useState({ title: '', note: '' });
+  const noteListGlobalState = useSelector(
+    (state: RootState) => state.noteListGlobalState,
+  );
   const [noteList, setNoteList] = useState([]);
   const dispatch = useDispatch();
   const selectedNoteGlobalState = useSelector(
     (state: RootState) => state.selectedNoteGlobalState,
   );
 
-  const handleSelectedNote = (title: string, note: string) => {
-    setSelectedNote({ title: title, note: note });
-  };
-
-  const getList = async () => {
-    try {
-      const { data: getList } = await axios.get(`/api/note`);
-      setNoteList(getList.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getList();
-  }, []);
+  const { isFetching } = useQuery({
+    queryKey: [noteListGlobalState.noteList],
+    queryFn: async () => {
+      try {
+        const { data: getList } = await axios.get(`/api/note`);
+        dispatch(updateListNote(getList.data));
+        return getList;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
   return (
     <>
@@ -66,7 +61,7 @@ export default function NotePage() {
         <div className="mt-[30px] relative">
           <AddNewNoteModal />
           <div className="flex flex-wrap gap-10">
-            {noteList.map((item: any, index: number) => (
+            {noteListGlobalState.noteList.map((item: any, index: number) => (
               <Dialog key={index}>
                 <Card
                   className="p-0 h-[230px] w-[330px] relative"

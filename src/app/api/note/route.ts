@@ -2,7 +2,6 @@ import { NextResponse, NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { database } from '@/service/firebase';
 import { collection, addDoc, getDocs, query } from 'firebase/firestore';
-import { Description } from '@radix-ui/react-dialog';
 import moment from 'moment';
 
 export async function GET() {

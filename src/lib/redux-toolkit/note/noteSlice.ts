@@ -33,6 +33,16 @@ export const counterSlice = createSlice({
         (task) => task.id !== action.payload,
       );
     },
+    editNote(state: ListNote, action: PayloadAction<Note, string>) {
+      const { id, ...updatedNoteData } = action.payload;
+      const noteIndex = state.noteList.findIndex((note) => note.id === id);
+      if (noteIndex !== -1) {
+        state.noteList[noteIndex] = {
+          ...state.noteList[noteIndex],
+          ...updatedNoteData,
+        };
+      }
+    },
   },
 });
 
