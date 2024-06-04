@@ -41,7 +41,7 @@ export default function NotePage() {
   );
 
   const { isFetching } = useQuery({
-    queryKey: [noteListGlobalState.noteList],
+    queryKey: [],
     queryFn: async () => {
       try {
         const { data: getList } = await axios.get(`/api/note`);
@@ -103,7 +103,7 @@ export default function NotePage() {
                       <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
                           <DialogTitle>
-                            <h1>{selectedNoteGlobalState.title}</h1>
+                            {selectedNoteGlobalState.title}
                           </DialogTitle>
                         </DialogHeader>
                         <div className="grid gap-4 py-4 break-all">

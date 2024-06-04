@@ -65,9 +65,7 @@ export async function POST(req: NextRequest) {
 
     const newNoteDoc = await getDoc(addNewNote);
     const newNoteData = newNoteDoc.data();
-
     const timestampCreate = newNoteData?.createdAt;
-
     const formattedCreatedAt = moment(
       timestampCreate.seconds * 1000 + timestampCreate.nanoseconds / 1000000,
     ).format('L');

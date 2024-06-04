@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { database } from '@/service/firebase';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
+import moment from 'moment';
 
 export async function PUT(
   req: NextRequest,
@@ -12,15 +13,27 @@ export async function PUT(
     const { title, content } = body;
 
     const noteRef = doc(database, 'notes', noteId);
+    const updatedAt = new Date();
     const updatedTodo = await updateDoc(noteRef, {
       title,
       content,
-      updatedAt: new Date(),
+      updatedAt,
     });
+
+    const updatedNoteSnapshot = await getDoc(noteRef);
+    const updatedNote = updatedNoteSnapshot.data();
+
+    if (!updatedNote) {
+      return NextResponse.json({ error: 'Note not found' }, { status: 404 });
+    }
+
+    updatedNote.id = noteId;
+    updatedNote.updatedAt = moment(updatedAt).format('MM/DD/YYYY');
 
     return NextResponse.json({
       status: 'success',
       message: 'success updated note',
+      data: updatedNote,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -46,5 +46,6 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { updateListNote, addNote, deleteNote } = counterSlice.actions;
+export const { updateListNote, addNote, deleteNote, editNote } =
+  counterSlice.actions;
 export default counterSlice.reducer;

@@ -54,9 +54,10 @@ export function AddNewNoteModal() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-[10px]">Add New Note</DialogTitle>
-          <DialogDescription>
+          <div>
             <form
-              onSubmit={() => {
+              onSubmit={(e) => {
+                e.preventDefault();
                 mutation.mutate();
               }}
               className="flex flex-col gap-5"
@@ -80,7 +81,7 @@ export function AddNewNoteModal() {
                 </Button>
               </div>
             </form>
-          </DialogDescription>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>

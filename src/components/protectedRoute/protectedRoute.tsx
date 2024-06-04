@@ -39,8 +39,6 @@ export default function ProtectedRoute({ children }: ProtectedProps) {
     },
   });
 
-  console.log(isAuth, pathName);
-
   const RenderingCondition = () => {
     if (isPending) {
       return (
