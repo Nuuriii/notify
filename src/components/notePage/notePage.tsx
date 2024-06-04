@@ -1,7 +1,6 @@
 'use client';
 import {
   PaddingContainer,
-  Button,
   Navbar,
   Card,
   CardContent,
@@ -9,20 +8,11 @@ import {
   CardTitle,
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
 } from '../common';
-import { DummyData } from './noteData';
-import { useState } from 'react';
-import { Ellipsis, FilePen, Heading1, Trash2 } from 'lucide-react';
 import { EditAndDeletePopOver } from './editAndDeletePopOver';
-import { useEffect } from 'react';
 import { AddNewNoteModal } from './addNewNoteModal';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
