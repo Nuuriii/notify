@@ -86,9 +86,9 @@ export default function NotePage() {
                   <DialogTrigger className="h-full w-full break-all flex flex-col justify-start p-[20px]">
                     <CardHeader className="p-0">
                       <CardTitle className="text-left relative">
-                        <h1 className="max-w-[200px] text-ellipsis overflow-hidden whitespace-nowrap">
+                        <p className="max-w-[200px] text-ellipsis overflow-hidden whitespace-nowrap">
                           {item.title}
-                        </h1>
+                        </p>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="text-left p-0 mt-[20px]">
