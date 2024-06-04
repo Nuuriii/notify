@@ -16,21 +16,29 @@ export async function GET() {
       user_id: string;
       title: string;
       content: string;
-      createdAt: string;
-      updatedAt: string;
+      createdAt: null | string;
+      updatedAt: null | string;
     }[] = [];
     notesSnapshot.forEach((doc) => {
-      const timestamp = doc.data().createdAt;
+      const timestampCreate = doc.data().createdAt;
+      const timestampUpdate = doc.data().updatedAt;
       const formattedCreatedAt = moment(
-        timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000,
+        timestampCreate.seconds * 1000 + timestampCreate.nanoseconds / 1000000,
       ).format('L');
+      const formattedUpdatedAt =
+        timestampUpdate !== null
+          ? moment(
+              timestampCreate.seconds * 1000 +
+                timestampCreate.nanoseconds / 1000000,
+            ).format('L')
+          : null;
       notesData.push({
         id: doc.id,
         user_id: doc.data().user_id,
         title: doc.data().title,
         content: doc.data().content,
         createdAt: formattedCreatedAt,
-        updatedAt: doc.data().updatedAt,
+        updatedAt: formattedUpdatedAt,
       });
     });
 
