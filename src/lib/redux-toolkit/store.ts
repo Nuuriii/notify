@@ -12,9 +12,11 @@ import {
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userInformationReducer from '@/lib/redux-toolkit/user-information/userInformation';
 import noteReducer from '@/lib/redux-toolkit/note/noteSlice';
+import selectedNoteReducer from '@/lib/redux-toolkit/note/selectedNoteSlice';
 
 const rootReducer = combineReducers({
   noteListGlobalState: noteReducer,
+  selectedNoteGlobalState: selectedNoteReducer,
   userInformation: persistReducer(
     {
       key: 'notify-user-information',

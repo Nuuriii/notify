@@ -3,6 +3,8 @@ import { Ellipsis } from 'lucide-react';
 import { EditNoteModal } from './editNoteModal';
 import { DeleteNoteModal } from './deleteNoteModal';
 
+interface EditAndDeletePopOver {}
+
 export function EditAndDeletePopOver() {
   return (
     <Popover>

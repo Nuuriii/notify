@@ -17,6 +17,7 @@ export async function GET() {
       title: string;
       content: string;
       createdAt: string;
+      updatedAt: string;
     }[] = [];
     notesSnapshot.forEach((doc) => {
       const timestamp = doc.data().createdAt;
@@ -29,6 +30,7 @@ export async function GET() {
         title: doc.data().title,
         content: doc.data().content,
         createdAt: formattedCreatedAt,
+        updatedAt: doc.data().updatedAt,
       });
     });
 
@@ -51,6 +53,7 @@ export async function POST(req: NextRequest) {
       title: title,
       content: note,
       createdAt: new Date(),
+      updatedAt: null,
     });
 
     return NextResponse.json({
