@@ -25,8 +25,13 @@ import { EditAndDeletePopOver } from './editAndDeletePopOver';
 import { useEffect } from 'react';
 import { AddNewNoteModal } from './addNewNoteModal';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 export default function NotePage() {
+  // const { isFetching, data, error} = useQuery({
+  //   queryKey: ['todos'],
+  //   queryFn: fetchTodoList,
+  // });
   const [selectedNote, setSelectedNote] = useState({ title: '', note: '' });
 
   const handleSelectedNote = (title: string, note: string) => {
