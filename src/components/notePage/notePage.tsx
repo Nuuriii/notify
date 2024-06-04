@@ -22,7 +22,9 @@ import { DummyData } from './noteData';
 import { useState } from 'react';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
 import { EditAndDeletePopOver } from './editAndDeletePopOver';
+import { useEffect } from 'react';
 import { AddNewNoteModal } from './addNewNoteModal';
+import axios from 'axios';
 
 export default function NotePage() {
   const [selectedNote, setSelectedNote] = useState({ title: '', note: '' });
@@ -30,6 +32,18 @@ export default function NotePage() {
   const handleSelectedNote = (title: string, note: string) => {
     setSelectedNote({ title: title, note: note });
   };
+
+  const getList = async () => {
+    try {
+      const { data: getList } = await axios.get(`/api/note`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getList();
+  }, []);
 
   return (
     <>
