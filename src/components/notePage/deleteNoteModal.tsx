@@ -10,8 +10,26 @@ import {
   DialogClose,
 } from '../common';
 import { Trash2 } from 'lucide-react';
+import { RootState } from '@/lib/redux-toolkit/store';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 export function DeleteNoteModal() {
+  const selectedNoteGlobalState = useSelector(
+    (state: RootState) => state.selectedNoteGlobalState,
+  );
+
+  const deleteNote = async () => {
+    try {
+      const { data: deleteNote } = await axios.delete(
+        `/api/note/${selectedNoteGlobalState.id}`,
+      );
+      console.log(deleteNote);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -26,7 +44,12 @@ export function DeleteNoteModal() {
           </DialogTitle>
           <DialogDescription className="">
             <div className="mt-[30px] flex justify-center gap-2">
-              <Button className="bg-red-500 hover:bg-red-400">Delete</Button>
+              <Button
+                className="bg-red-500 hover:bg-red-400"
+                onClick={deleteNote}
+              >
+                Delete
+              </Button>
 
               <DialogClose>
                 <Button className="bg-neutral-800 hover:bg-neutral-700">
