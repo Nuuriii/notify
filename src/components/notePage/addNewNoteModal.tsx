@@ -2,34 +2,34 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
   Button,
   Input,
+  Textarea,
 } from '../common';
-import { database } from '@/service/firebase';
-import { collection, addDoc } from 'firebase/firestore';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import axios from 'axios';
 
 export function AddNewNoteModal() {
-  const [note, setNote] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteDescription, setNoteDescription] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (note.trim() === '') return;
+    if (noteTitle.trim() === '' || noteDescription.trim() === '') return;
 
     try {
       const postData = {
-        title: 'halo',
-        note: 'hahahah bisa cuy',
+        title: `${noteTitle}`,
+        note: `${noteDescription}`,
       };
       const { data: postNewData } = await axios.post('/api/note', postData);
 
-      setNote('');
+      setNoteTitle('');
+      setNoteDescription('');
     } catch (error) {
       console.error('Error adding note: ', error);
     }
@@ -44,16 +44,27 @@ export function AddNewNoteModal() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add New Note</DialogTitle>
+          <DialogTitle className="mb-[10px]">Add New Note</DialogTitle>
           <DialogDescription>
-            <Input type="text" placeholder="note" />
-            <form onSubmit={handleSubmit}>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="Write your note here"
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <Input
+                type="text"
+                placeholder="note"
+                value={noteTitle}
+                onChange={(e) => setNoteTitle(e.target.value)}
               />
-              <button type="submit">Add Note</button>
+
+              <Textarea
+                value={noteDescription}
+                onChange={(e) => setNoteDescription(e.target.value)}
+                placeholder="Write your note here"
+                className="max-h-[200px]"
+              />
+              <div className="flex justify-end">
+                <Button type="submit" className="max-w-[100px]">
+                  Add Note
+                </Button>
+              </div>
             </form>
           </DialogDescription>
         </DialogHeader>
