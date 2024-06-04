@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { database } from '@/service/firebase';
-import { collection, addDoc, getDocs, query } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, getDoc } from 'firebase/firestore';
 import moment from 'moment';
 
 export async function GET() {
@@ -63,9 +63,28 @@ export async function POST(req: NextRequest) {
       updatedAt: null,
     });
 
+    const newNoteDoc = await getDoc(addNewNote);
+    const newNoteData = newNoteDoc.data();
+
+    const timestampCreate = newNoteData?.createdAt;
+
+    const formattedCreatedAt = moment(
+      timestampCreate.seconds * 1000 + timestampCreate.nanoseconds / 1000000,
+    ).format('L');
+
+    const formattedResponse = {
+      id: newNoteDoc.id,
+      user_id: newNoteData?.user_id,
+      title: newNoteData?.title,
+      content: newNoteData?.content,
+      createdAt: formattedCreatedAt,
+      updatedAt: null,
+    };
+
     return NextResponse.json({
       status: 'success',
       message: 'success create new note',
+      data: formattedResponse,
     });
   } catch (error: any) {
     console.log(error);
