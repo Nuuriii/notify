@@ -9,9 +9,32 @@ import {
   Button,
   Input,
 } from '../common';
+import { database } from '@/service/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import axios from 'axios';
 
 export function AddNewNoteModal() {
+  const [note, setNote] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (note.trim() === '') return;
+
+    try {
+      const postData = {
+        title: 'halo',
+        note: 'hahahah bisa cuy',
+      };
+      const { data: postNewData } = await axios.post('/api/note', postData);
+
+      setNote('');
+    } catch (error) {
+      console.error('Error adding note: ', error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -24,6 +47,14 @@ export function AddNewNoteModal() {
           <DialogTitle>Add New Note</DialogTitle>
           <DialogDescription>
             <Input type="text" placeholder="note" />
+            <form onSubmit={handleSubmit}>
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Write your note here"
+              />
+              <button type="submit">Add Note</button>
+            </form>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
