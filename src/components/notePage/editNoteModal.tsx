@@ -17,7 +17,11 @@ import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { editNote } from '@/lib/redux-toolkit/note/noteSlice';
 
-export function EditNoteModal() {
+interface EditNoteModalProps {
+  onClose: () => void;
+}
+
+export function EditNoteModal({ onClose }: EditNoteModalProps) {
   const [emptyWarning, setEmptyWarning] = useState({
     emptyTitle: false,
     emptyContent: false,
@@ -58,6 +62,7 @@ export function EditNoteModal() {
         );
         dispatch(editNote(response.data));
         setOpenModal(false);
+        onClose();
         return response;
       } catch (error) {
         return error;
@@ -68,6 +73,7 @@ export function EditNoteModal() {
   const handleCloseModal = (isOpen: boolean) => {
     setOpenModal(isOpen);
     if (!isOpen) {
+      onClose();
       setEmptyWarning({ emptyTitle: false, emptyContent: false });
       setNewValue({
         title: selectedNoteGlobalState.title,

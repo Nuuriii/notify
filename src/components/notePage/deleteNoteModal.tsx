@@ -15,7 +15,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { deleteNote } from '@/lib/redux-toolkit/note/noteSlice';
 
-export function DeleteNoteModal() {
+interface DeleteNoteModalProps {
+  onClose: () => void;
+}
+
+export function DeleteNoteModal({ onClose }: DeleteNoteModalProps) {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const selectedNoteGlobalState = useSelector(
@@ -35,6 +39,7 @@ export function DeleteNoteModal() {
         );
         setOpenModal(false);
         dispatch(deleteNote(selectedNoteGlobalState.id));
+        onClose();
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +47,13 @@ export function DeleteNoteModal() {
   });
 
   return (
-    <Dialog open={openModal} onOpenChange={setOpenModal}>
+    <Dialog
+      open={openModal}
+      onOpenChange={(isOpen) => {
+        setOpenModal(isOpen);
+        if (!isOpen) onClose();
+      }}
+    >
       <DialogTrigger>
         <div className="flex bg-red-500 text-white rounded-md justify-center items-center h-[35px] w-[35px] p-0">
           <Trash2 size={18} />
