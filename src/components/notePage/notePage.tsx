@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
   Dialog,
   DialogContent,
   DialogHeader,
@@ -90,7 +89,7 @@ export default function NotePage() {
 
                       <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                          <DialogTitle>
+                          <DialogTitle className="break-all">
                             {selectedNoteGlobalState.title}
                           </DialogTitle>
                         </DialogHeader>

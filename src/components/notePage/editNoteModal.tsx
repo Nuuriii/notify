@@ -17,6 +17,10 @@ import { useMutation } from '@tanstack/react-query';
 import { editNote } from '@/lib/redux-toolkit/note/noteSlice';
 
 export function EditNoteModal() {
+  const [emptyWarning, setEmptyWarning] = useState({
+    emptyTitle: false,
+    emptyContent: false,
+  });
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const selectedNoteGlobalState = useSelector(
@@ -29,10 +33,18 @@ export function EditNoteModal() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      // if (newTodo.title === '') {
-      //   setError(true);
-      //   return;
-      // }
+      if (
+        newValue.title === '' ||
+        newValue.content === ' ' ||
+        newValue.content === '' ||
+        newValue.content === ' '
+      ) {
+        setEmptyWarning({
+          emptyTitle: newValue.title === '' || newValue.content === ' ',
+          emptyContent: newValue.content === '' || newValue.content === ' ',
+        });
+        return;
+      }
 
       try {
         const updateData = {
@@ -52,8 +64,16 @@ export function EditNoteModal() {
     },
   });
 
+  const handleCloseModal = (isOpen: boolean) => {
+    setOpenModal(isOpen);
+    if (!isOpen) {
+      setEmptyWarning({ emptyTitle: false, emptyContent: false });
+      setNewValue({ title: '', content: '' });
+    }
+  };
+
   return (
-    <Dialog open={openModal} onOpenChange={setOpenModal}>
+    <Dialog open={openModal} onOpenChange={handleCloseModal}>
       <DialogTrigger>
         <div className="flex bg-neutral-700 text-white rounded-md justify-center items-center h-[35px] w-[35px] p-0">
           <FilePen size={18} />
@@ -70,6 +90,8 @@ export function EditNoteModal() {
               }}
             >
               <Input
+                error={emptyWarning.emptyTitle}
+                errorMessage="Note Title cannot empty"
                 type="text"
                 placeholder="note"
                 value={newValue.title}
@@ -84,6 +106,8 @@ export function EditNoteModal() {
                 onChange={(e) =>
                   setNewValue({ ...newValue, content: e.target.value })
                 }
+                error={emptyWarning.emptyContent}
+                errorMessage="Content Note cannot Empty"
               />
               <div>
                 <Button type="submit">Update</Button>
