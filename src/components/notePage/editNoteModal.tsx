@@ -4,6 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
   Button,
   Input,
   Textarea,
@@ -68,7 +69,10 @@ export function EditNoteModal() {
     setOpenModal(isOpen);
     if (!isOpen) {
       setEmptyWarning({ emptyTitle: false, emptyContent: false });
-      setNewValue({ title: '', content: '' });
+      setNewValue({
+        title: selectedNoteGlobalState.title,
+        content: selectedNoteGlobalState.content,
+      });
     }
   };
 
@@ -81,13 +85,14 @@ export function EditNoteModal() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Note?</DialogTitle>
+          <DialogTitle className="mb-[10px]">Edit Note?</DialogTitle>
           <div>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 mutation.mutate();
               }}
+              className="flex flex-col gap-5"
             >
               <Input
                 error={emptyWarning.emptyTitle}
@@ -109,8 +114,10 @@ export function EditNoteModal() {
                 error={emptyWarning.emptyContent}
                 errorMessage="Content Note cannot Empty"
               />
-              <div>
-                <Button type="submit">Update</Button>
+              <div className="flex justify-end">
+                <Button disabled={mutation.isPending} type="submit">
+                  {mutation.isPending ? 'Updating . . .' : 'Update'}
+                </Button>
               </div>
             </form>
           </div>

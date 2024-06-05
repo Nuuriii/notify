@@ -50,18 +50,19 @@ export function DeleteNoteModal() {
       </DialogTrigger>
       <DialogContent className="w-[330px] h-max flex flex-col items-start">
         <DialogHeader className="w-full">
-          <DialogTitle className="text-center">
+          <DialogTitle className="text-center mb-[30px]">
             Are you sure you want to delete this note?
           </DialogTitle>
 
-          <div className="mt-[30px] flex justify-center gap-2">
+          <div className="flex justify-center gap-3">
             <Button
+              disabled={deleteNoteFunction.isPending}
               className="bg-red-500 hover:bg-red-400"
               onClick={() => {
                 deleteNoteFunction.mutate();
               }}
             >
-              Delete
+              {deleteNoteFunction.isPending ? 'Deleting . . .' : 'Delete'}
             </Button>
 
             <DialogClose className="text-white rounded-md py-[5px] px-[15px] text-sm bg-neutral-800 hover:bg-neutral-700">
