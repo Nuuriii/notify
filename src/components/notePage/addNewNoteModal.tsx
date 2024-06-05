@@ -27,10 +27,15 @@ export function AddNewNoteModal() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      if (noteTitle === '' || noteDescription === '') {
+      if (
+        noteTitle === '' ||
+        noteTitle === ' ' ||
+        noteDescription === '' ||
+        noteDescription === ' '
+      ) {
         setEmptyWarning({
-          emptyTitle: noteTitle === '',
-          emptyContent: noteDescription === '',
+          emptyTitle: noteTitle === '' || noteTitle === ' ',
+          emptyContent: noteDescription === '' || noteDescription === ' ',
         });
         return;
       }
@@ -83,12 +88,12 @@ export function AddNewNoteModal() {
                 errorMessage="Note Title cannot empty"
                 type="text"
                 placeholder="note"
-                value={noteTitle}
+                value={noteTitle === ' ' ? '' : noteTitle}
                 onChange={(e) => setNoteTitle(e.target.value)}
               />
 
               <Textarea
-                value={noteDescription}
+                value={noteDescription === ' ' ? '' : noteDescription}
                 onChange={(e) => setNoteDescription(e.target.value)}
                 placeholder="Write your note here"
                 error={emptyWarning.emptyContent}
