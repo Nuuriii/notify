@@ -2,13 +2,13 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
+  DialogClose,
   DialogTrigger,
   Button,
   Input,
   Textarea,
 } from '../common';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -74,7 +74,12 @@ export function AddNewNoteModal() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-[10px]">Add New Note</DialogTitle>
+          <div className="mb-[10px] flex justify-between ">
+            <h1 className="font-semibold text-md">Add New Note</h1>
+            <DialogClose>
+              <X size={18} />
+            </DialogClose>
+          </div>
           <div>
             <form
               onSubmit={(e) => {
@@ -100,8 +105,12 @@ export function AddNewNoteModal() {
                 errorMessage="Content Note cannot Empty"
               />
               <div className="flex justify-end">
-                <Button type="submit" className="max-w-[100px]">
-                  Add Note
+                <Button
+                  disabled={mutation.isPending}
+                  type="submit"
+                  className="max-w-[100px]"
+                >
+                  {mutation.isPending ? 'Adding. . .' : 'Add'}
                 </Button>
               </div>
             </form>
