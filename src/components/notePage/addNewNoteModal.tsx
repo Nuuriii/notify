@@ -16,6 +16,10 @@ import { addNote } from '@/lib/redux-toolkit/note/noteSlice';
 import { useMutation } from '@tanstack/react-query';
 
 export function AddNewNoteModal() {
+  const [emptyWarning, setEmptyWarning] = useState({
+    emptyTitle: false,
+    emptyContent: false,
+  });
   const [openModal, setOpenModal] = useState(false);
   const [noteTitle, setNoteTitle] = useState('');
   const [noteDescription, setNoteDescription] = useState('');
@@ -23,10 +27,13 @@ export function AddNewNoteModal() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      // if (newTodo.title === '') {
-      //   setError(true);
-      //   return;
-      // }
+      if (noteTitle === '' || noteDescription === '') {
+        setEmptyWarning({
+          emptyTitle: noteTitle === '',
+          emptyContent: noteDescription === '',
+        });
+        return;
+      }
 
       try {
         const postData = {
@@ -38,6 +45,7 @@ export function AddNewNoteModal() {
         setOpenModal(false);
         setNoteTitle('');
         setNoteDescription('');
+        setEmptyWarning({ emptyTitle: false, emptyContent: false });
         return response;
       } catch (error) {
         return error;
@@ -45,8 +53,17 @@ export function AddNewNoteModal() {
     },
   });
 
+  const handleCloseModal = (isOpen: boolean) => {
+    setOpenModal(isOpen);
+    if (!isOpen) {
+      setEmptyWarning({ emptyTitle: false, emptyContent: false });
+      setNoteTitle('');
+      setNoteDescription('');
+    }
+  };
+
   return (
-    <Dialog open={openModal} onOpenChange={setOpenModal}>
+    <Dialog open={openModal} onOpenChange={handleCloseModal}>
       <DialogTrigger className="bg-neutral-700 text-white z-20 fixed right-[100px] bottom-[30px] flex justify-center items-center h-[50px] w-[50px] p-0 rounded-full transition-[0.3s] active:scale-[0.96]">
         <Plus size={30} />
       </DialogTrigger>
@@ -62,6 +79,8 @@ export function AddNewNoteModal() {
               className="flex flex-col gap-5"
             >
               <Input
+                error={emptyWarning.emptyTitle}
+                errorMessage="Note Title cannot empty"
                 type="text"
                 placeholder="note"
                 value={noteTitle}
@@ -72,7 +91,8 @@ export function AddNewNoteModal() {
                 value={noteDescription}
                 onChange={(e) => setNoteDescription(e.target.value)}
                 placeholder="Write your note here"
-                className="max-h-[200px]"
+                error={emptyWarning.emptyContent}
+                errorMessage="Content Note cannot Empty"
               />
               <div className="flex justify-end">
                 <Button type="submit" className="max-w-[100px]">
