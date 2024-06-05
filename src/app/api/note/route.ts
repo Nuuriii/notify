@@ -1,13 +1,25 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { database } from '@/service/firebase';
-import { collection, addDoc, getDocs, query, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  where,
+  query,
+  getDoc,
+} from 'firebase/firestore';
 import moment from 'moment';
 
 export async function GET() {
+  const Cookie = cookies();
+  const notifyUid = Cookie.get('notify-uid')?.value;
   try {
     const notesCollection = collection(database, 'notes');
-    const notesQuery = query(notesCollection);
+    const notesQuery = query(
+      notesCollection,
+      where('user_id', '==', notifyUid),
+    );
     const notesSnapshot = await getDocs(notesQuery);
 
     const notesData: {
