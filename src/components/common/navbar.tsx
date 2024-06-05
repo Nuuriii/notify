@@ -47,7 +47,7 @@ export function Navbar() {
           <div className="flex justify-between items-center py-[3px]">
             <h1 className="text-2xl font-semibold">Notify</h1>
             <MenubarMenu>
-              <MenubarTrigger className="cursor-pointer">
+              <MenubarTrigger className="cursor-pointer p-0">
                 <Image
                   className="h-[40px] w-[40px] rounded-full"
                   src={
