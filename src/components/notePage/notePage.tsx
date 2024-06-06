@@ -75,14 +75,14 @@ export default function NotePage() {
                         <EditAndDeletePopOver />
                         <DialogTrigger className="h-full w-full break-all flex flex-col justify-start p-[20px]">
                           <CardHeader className="p-0">
-                            <h1 className="max-w-[200px] font-semibold text-xl text-ellipsis overflow-hidden whitespace-nowrap text-left relative">
+                            <h1 className="max-w-[200px] font-semibold text-lg md:text-xl text-ellipsis overflow-hidden whitespace-nowrap text-left relative">
                               {item.title}
                             </h1>
                           </CardHeader>
                           <CardContent className="text-left p-0 mt-[10px]">
-                            <h1 className="text-ellipsis overflow-hidden line-clamp-6">
+                            <p className="text-sm md:text-md text-ellipsis overflow-hidden line-clamp-6">
                               {item.content}
-                            </h1>
+                            </p>
                           </CardContent>
                         </DialogTrigger>
                       </Card>
@@ -95,7 +95,9 @@ export default function NotePage() {
                         </DialogHeader>
                         <div className="grid gap-4 py-4 break-all">
                           <div className="">
-                            <p>{selectedNoteGlobalState.content}</p>
+                            <p className="text-sm md:text-md">
+                              {selectedNoteGlobalState.content}
+                            </p>
                           </div>
                         </div>
                       </DialogContent>
