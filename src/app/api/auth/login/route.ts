@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       expires: expirationDate,
     });
 
-    const SaveUserToDatabase = await setDoc(
+    await setDoc(
       doc(database, 'users', uid),
       {
         uid: uid,

@@ -12,32 +12,33 @@ export async function GET(req: NextRequest) {
   const notifyEmail = Cookies.get('notify-email')?.value;
 
   try {
-    const getUserInformation = await getDoc(
-      doc(database, 'users', notifyUid || ''),
-    );
+    return NextResponse.json({ message: 'hhhh' });
+    // const getUserInformation = await getDoc(
+    //   doc(database, 'users', notifyUid || ''),
+    // );
 
-    if (
-      getUserInformation.data()?.displayName === displayName &&
-      getUserInformation.data()?.email === notifyEmail &&
-      getUserInformation.data()?.photoURL === photoUrl &&
-      getUserInformation.data()?.uid === notifyUid
-    ) {
-      return NextResponse.json(
-        {
-          status: 'success',
-          message: 'User is Verified',
-        },
-        { status: 200 },
-      );
-    }
+    // if (
+    //   getUserInformation.data()?.displayName === displayName &&
+    //   getUserInformation.data()?.email === notifyEmail &&
+    //   getUserInformation.data()?.photoURL === photoUrl &&
+    //   getUserInformation.data()?.uid === notifyUid
+    // ) {
+    //   return NextResponse.json(
+    //     {
+    //       status: 'success',
+    //       message: 'User is Verified',
+    //     },
+    //     { status: 200 },
+    //   );
+    // }
 
-    return NextResponse.json(
-      {
-        status: 'unauthorized',
-        message: 'User is not Verified',
-      },
-      { status: 401 },
-    );
+    // return NextResponse.json(
+    //   {
+    //     status: 'unauthorized',
+    //     message: 'User is not Verified',
+    //   },
+    //   { status: 401 },
+    // );
   } catch (error: any) {
     console.error('Error get user to Firestore:', error);
     return NextResponse.json(
