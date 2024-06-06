@@ -28,11 +28,6 @@ export function DeleteNoteModal({ onClose }: DeleteNoteModalProps) {
 
   const deleteNoteFunction = useMutation({
     mutationFn: async () => {
-      // if (newTodo.title === '') {
-      //   setError(true);
-      //   return;
-      // }
-
       try {
         const { data: response } = await axios.delete(
           `/api/note/${selectedNoteGlobalState.id}`,
@@ -48,7 +43,7 @@ export function DeleteNoteModal({ onClose }: DeleteNoteModalProps) {
 
   return (
     <Dialog
-      open={openModal}
+      open={openModal || deleteNoteFunction.isPending}
       onOpenChange={(isOpen) => {
         setOpenModal(isOpen);
         if (!isOpen) onClose();

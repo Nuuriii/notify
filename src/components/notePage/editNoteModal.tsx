@@ -4,7 +4,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
   Button,
   Input,
   Textarea,
@@ -83,7 +82,10 @@ export function EditNoteModal({ onClose }: EditNoteModalProps) {
   };
 
   return (
-    <Dialog open={openModal} onOpenChange={handleCloseModal}>
+    <Dialog
+      open={openModal || mutation.isPending}
+      onOpenChange={handleCloseModal}
+    >
       <DialogTrigger>
         <div className="flex bg-neutral-700 text-white rounded-md justify-center items-center h-[35px] w-[35px] p-0">
           <FilePen size={18} />
