@@ -35,7 +35,7 @@ const Login: React.FC = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
-      // await saveUserToFirestore(result.user);
+      await saveUserToFirestore(result.user);
     } catch (error) {
       console.error('Error signing in: ', error);
     }
