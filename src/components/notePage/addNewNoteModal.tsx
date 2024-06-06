@@ -72,8 +72,8 @@ export function AddNewNoteModal() {
       open={openModal || mutation.isPending}
       onOpenChange={handleCloseModal}
     >
-      <DialogTrigger className="bg-neutral-700 text-white z-20 fixed right-[100px] bottom-[30px] flex justify-center items-center h-[50px] w-[50px] p-0 rounded-full transition-[0.3s] active:scale-[0.96]">
-        <Plus size={30} />
+      <DialogTrigger className="bg-neutral-700 text-white z-20 fixed right-[18px] md:right-[100px] bottom-[30px] flex justify-center items-center h-[40px] w-[40px] md:h-[45px] md:w-[45px] p-0 rounded-full transition-[0.3s] active:scale-[0.96]">
+        <Plus className="h-[20px] md:h-[30px] md:w-[30px]" />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
